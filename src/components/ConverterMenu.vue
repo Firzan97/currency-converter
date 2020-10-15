@@ -30,8 +30,8 @@
                       </div>
                       <b-col cols="3">
                         <b-form-select
-                          v-model="selectedCurrency"
-                          :options="currency"
+                          v-model="selectedCurrencyBase"
+                          :options="kod"
                           value-field="rates"
                         ></b-form-select> </b-col
                     ></b-row>
@@ -61,8 +61,8 @@
                       </div>
                       <b-col cols="3">
                         <b-form-select
-                          v-model="selectedCurrency"
-                          :options="currency"
+                          v-model="selectedCurrencyConvert"
+                          :options="kod"
                           value-field="rates"
                         ></b-form-select> </b-col></b-row></b-container
                 ></b-col>
@@ -88,12 +88,10 @@ export default {
   name: "ConverterMenu",
   data() {
     return {
-      currency: {
-        kod: [],
-        cur: [],
-      },
-      selectedCurrency: "",
-
+      b: [],
+      kod: [],
+      selectedCurrencyBase: "",
+      selectedCurrencyConvert: "",
       form: {
         email: "",
       },
@@ -123,11 +121,14 @@ export default {
         .get(
           "http://data.fixer.io/api/latest?access_key=2775a2447f46b37ae6dd6d357884b28b"
         )
-        .then(function(response) {
+        .then((response) => {
           // handle success
-          //   this.currency. = response.data.rates;
-          console.log("pariyaaaa");
-          console.log(response.data.rates);
+          //   //   this.currency. = response.data.rates;
+          //   this.kod = Object.keys(response.data.rates["1"]);
+          //   console.log(this.kod);
+          //   console.log(response.data.rates);
+          this.kod = Object.keys(response.data.rates);
+          console.log(this.kod[1]);
         })
         .catch(function(error) {
           // handle error
