@@ -8,10 +8,10 @@
             <p>TukarDuit convert the currency by fetching the data from API</p>
             <b-container class="bv-example-row">
               <b-row>
-                <b-col cols="5">
+                <b-col cols="7">
                   <b-container>
                     <b-row class="py-5">
-                      <div class="px-4">
+                      <div class="">
                         <b-form v-on:submit="onSubmit" v-on:reset="onReset">
                           <b-form-group
                             id="input-group-1"
@@ -27,10 +27,16 @@
                             >
                           </b-form-group>
                         </b-form>
-                      </div></b-row
-                    >
+                      </div>
+                      <b-col cols="3">
+                        <b-form-select
+                          v-model="selectedCurrency"
+                          :options="currency"
+                          value-field="rates"
+                        ></b-form-select> </b-col
+                    ></b-row>
                     <b-row>
-                      <div class="px-4">
+                      <div class="">
                         <b-form v-on:submit="onSubmit" v-on:reset="onReset">
                           <b-form-group
                             id="input-group-1"
@@ -52,10 +58,14 @@
                             >Convert</b-button
                           >
                         </b-form>
-                      </div></b-row
-                    ></b-container
-                  ></b-col
-                >
+                      </div>
+                      <b-col cols="3">
+                        <b-form-select
+                          v-model="selectedCurrency"
+                          :options="currency"
+                          value-field="rates"
+                        ></b-form-select> </b-col></b-row></b-container
+                ></b-col>
                 <b-col cols="5">
                   <img
                     class="img-fluid pl-2"
@@ -72,14 +82,26 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
   name: "ConverterMenu",
   data() {
     return {
+      currency: {
+        kod: [],
+        cur: [],
+      },
+      selectedCurrency: "",
+
       form: {
         email: "",
       },
     };
+  },
+
+  created() {
+    this.loadCurrency();
   },
   methods: {
     onSubmit(evt) {
@@ -95,6 +117,22 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    loadCurrency() {
+      axios
+        .get(
+          "http://data.fixer.io/api/latest?access_key=2775a2447f46b37ae6dd6d357884b28b"
+        )
+        .then(function(response) {
+          // handle success
+          //   this.currency. = response.data.rates;
+          console.log("pariyaaaa");
+          console.log(response.data.rates);
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        });
     },
   },
 };
