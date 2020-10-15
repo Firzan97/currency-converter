@@ -7,48 +7,62 @@
             <h1 class="pt-3">How our currency converter works</h1>
             <p>TukarDuit convert the currency by fetching the data from API</p>
             <b-container class="bv-example-row">
-              <b-row
-                ><b-col cols="5">
-                  <div class="px-4">
-                    <b-form v-on:submit="onSubmit" v-on:reset="onReset">
-                      <b-form-group
-                        id="input-group-1"
-                        label-for="input-1"
-                        description="Base currency"
-                      >
-                        <b-form-input
-                          id="input-1"
-                          v-model="form.email"
-                          type="text"
-                          required
-                          >sasa</b-form-input
-                        >
-                      </b-form-group>
-                    </b-form>
-                  </div></b-col
-                ></b-row
-              >
               <b-row>
                 <b-col cols="5">
-                  <div class="px-4">
-                    <b-form v-on:submit="onSubmit" v-on:reset="onReset">
-                      <b-form-group
-                        id="input-group-1"
-                        label-for="input-1"
-                        description="Convert currency"
-                      >
-                        <b-form-input
-                          id="input-1"
-                          v-model="form.email"
-                          type="text"
-                          required
-                          >sasa</b-form-input
-                        >
-                      </b-form-group>
-                    </b-form>
-                  </div></b-col
-                ></b-row
-              >
+                  <b-container>
+                    <b-row class="py-5">
+                      <div class="px-4">
+                        <b-form v-on:submit="onSubmit" v-on:reset="onReset">
+                          <b-form-group
+                            id="input-group-1"
+                            label-for="input-1"
+                            description="Base currency"
+                          >
+                            <b-form-input
+                              id="input-1"
+                              v-model="form.email"
+                              type="text"
+                              required
+                              >sasa</b-form-input
+                            >
+                          </b-form-group>
+                        </b-form>
+                      </div></b-row
+                    >
+                    <b-row>
+                      <div class="px-4">
+                        <b-form v-on:submit="onSubmit" v-on:reset="onReset">
+                          <b-form-group
+                            id="input-group-1"
+                            label-for="input-1"
+                            description="Convert currency"
+                          >
+                            <b-form-input
+                              id="input-1"
+                              v-model="form.email"
+                              type="text"
+                              required
+                              >sasa</b-form-input
+                            >
+                          </b-form-group>
+                          <b-button
+                            class="shadow-sm"
+                            type="submit"
+                            variant="outline-primary"
+                            >Convert</b-button
+                          >
+                        </b-form>
+                      </div></b-row
+                    ></b-container
+                  ></b-col
+                >
+                <b-col cols="5">
+                  <img
+                    class="img-fluid"
+                    alt="Responsive image"
+                    src="../assets/images/duit.png"
+                  /> </b-col
+              ></b-row>
             </b-container>
           </div>
         </b-col>
@@ -100,5 +114,7 @@ export default {
   font-family: "Arvo", serif;
 
   font-size: 25px;
+}
+.duit {
 }
 </style>

@@ -28,7 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: black;
-  z-index: 9;
+  z-index: 1;
 }
 .body {
   background-image: url("./assets/images/16431.jpg");
