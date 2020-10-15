@@ -46,9 +46,9 @@
                             >
                           </b-form-group>
                           <b-button
-                            class="shadow-sm"
+                            class="shadow-lg"
                             type="submit"
-                            variant="outline-primary"
+                            variant="primary"
                             >Convert</b-button
                           >
                         </b-form>
@@ -58,7 +58,7 @@
                 >
                 <b-col cols="5">
                   <img
-                    class="img-fluid"
+                    class="img-fluid pl-2"
                     alt="Responsive image"
                     src="../assets/images/duit.png"
                   /> </b-col
@@ -103,7 +103,7 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap");
 .converter-menu {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
   height: 500px;
   width: 100%;
   margin-top: 90px;

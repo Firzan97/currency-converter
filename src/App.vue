@@ -34,5 +34,6 @@ export default {
   background-image: url("./assets/images/16431.jpg");
   height: 100vh;
   z-index: -1;
+  background-size: cover;
 }
 </style>
