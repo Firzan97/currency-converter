@@ -62,7 +62,6 @@
                         <b-form-select
                           v-model="selectedCurrencyConvert"
                           :options="kod"
-                          value-field="code"
                           text-field="code"
                         ></b-form-select> </b-col></b-row></b-container
                 ></b-col>
@@ -89,6 +88,7 @@ export default {
   data() {
     return {
       kod: [],
+      currencyObject: {},
       currency: [],
       currencyInfo: [],
       countries: [],
@@ -102,13 +102,14 @@ export default {
   },
 
   created() {
-    this.loadCurrency("USD");
+    this.loadCurrency();
     this.loadAllCountries();
+    this.loadCurrencyName();
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      // alert(JSON.stringify(this.form));
     },
     onReset(evt) {
       evt.preventDefault();
@@ -120,9 +121,10 @@ export default {
         this.show = true;
       });
     },
-    loadCurrency(baseCurrency) {
+
+    loadCurrency() {
       axios
-        .get("https://api.exchangeratesapi.io/latest?base=" + baseCurrency)
+        .get("https://api.exchangeratesapi.io/latest?base=USD")
         .then((response) => {
           // handle success
           //   //   this.currency. = response.data.rates;
@@ -144,8 +146,11 @@ export default {
         .then((respond) => {
           var length = respond.data.length;
           var i = 0;
+          var code;
+          console.log(this.currencyInfo.length);
           for (i; i < length; i++) {
-            this.countries.push(respond.data[i].currencies[0].code);
+            code = respond.data[i].currencies[0].code;
+            this.countries.push(code);
           }
         })
         .catch((err) => {
