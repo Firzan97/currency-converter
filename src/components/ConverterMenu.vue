@@ -28,7 +28,7 @@
                           </b-form-group>
                         </b-form>
                       </div>
-                      <b-col cols="3">
+                      <b-col cols="4">
                         <b-form-select
                           v-model="selectedCurrencyBase"
                           :options="kod"
@@ -58,7 +58,7 @@
                           >
                         </b-form>
                       </div>
-                      <b-col cols="3">
+                      <b-col cols="4">
                         <b-form-select
                           v-model="selectedCurrencyConvert"
                           :options="kod"
@@ -92,7 +92,7 @@ export default {
       currency: [],
       currencyInfo: [],
       countries: [],
-      selectedCurrencyBase: "",
+      selectedCurrencyBase: "USD",
       selectedCurrencyConvert: "",
       form: {
         email: "",
@@ -102,7 +102,7 @@ export default {
   },
 
   created() {
-    this.loadCurrency();
+    this.loadCurrency("USD");
     this.loadAllCountries();
   },
   methods: {
@@ -120,9 +120,9 @@ export default {
         this.show = true;
       });
     },
-    loadCurrency() {
+    loadCurrency(baseCurrency) {
       axios
-        .get("https://api.exchangeratesapi.io/latest")
+        .get("https://api.exchangeratesapi.io/latest?base=" + baseCurrency)
         .then((response) => {
           // handle success
           //   //   this.currency. = response.data.rates;
@@ -131,9 +131,7 @@ export default {
           this.currencyInfo = response.data.rates;
           for (var key in response.data.rates) {
             this.kod.push(key);
-            this.currency.push(response.data.rates[key]);
           }
-          console.log(this.currency);
         })
         .catch(function(error) {
           // handle error
@@ -155,8 +153,21 @@ export default {
         });
     },
     convert() {
-      var rates = this.currencyInfo[this.selectedCurrencyConvert];
-      this.form.email2 = parseFloat(this.form.email) * rates;
+      axios
+        .get(
+          "https://api.exchangeratesapi.io/latest?base=" +
+            this.selectedCurrencyBase
+        )
+        .then((response) => {
+          this.currencyInfo = response.data.rates;
+
+          this.kod.length = 0;
+          var rates = this.currencyInfo[this.selectedCurrencyConvert];
+          this.form.email2 = parseFloat(this.form.email) * rates;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
