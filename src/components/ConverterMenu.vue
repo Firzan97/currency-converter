@@ -46,7 +46,6 @@
                               id="input-1"
                               v-model="form.email2"
                               type="text"
-                              required
                               >sasa</b-form-input
                             >
                           </b-form-group>
@@ -89,8 +88,9 @@ export default {
   name: "ConverterMenu",
   data() {
     return {
-      b: [],
       kod: [],
+      currency: [],
+      currencyInfo: [],
       countries: [],
       selectedCurrencyBase: "",
       selectedCurrencyConvert: "",
@@ -128,8 +128,12 @@ export default {
           //   //   this.currency. = response.data.rates;
           //   this.kod = Object.keys(response.data.rates["1"]);
           //   console.log(this.kod);
-          //   console.log(response.data.rates);
-          this.kod = Object.keys(response.data.rates);
+          this.currencyInfo = response.data.rates;
+          for (var key in response.data.rates) {
+            this.kod.push(key);
+            this.currency.push(response.data.rates[key]);
+          }
+          console.log(this.currency);
         })
         .catch(function(error) {
           // handle error
@@ -150,7 +154,10 @@ export default {
           console.log(err);
         });
     },
-    convert() {},
+    convert() {
+      var rates = this.currencyInfo[this.selectedCurrencyConvert];
+      this.form.email2 = parseFloat(this.form.email) * rates;
+    },
   },
 };
 </script>
