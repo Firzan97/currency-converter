@@ -32,7 +32,6 @@
                         <b-form-select
                           v-model="selectedCurrencyBase"
                           :options="kod"
-                          value-field="rates"
                         ></b-form-select> </b-col
                     ></b-row>
                     <b-row>
@@ -45,7 +44,7 @@
                           >
                             <b-form-input
                               id="input-1"
-                              v-model="form.email"
+                              v-model="form.email2"
                               type="text"
                               required
                               >sasa</b-form-input
@@ -55,6 +54,7 @@
                             class="shadow-lg"
                             type="submit"
                             variant="primary"
+                            v-on:click="convert()"
                             >Convert</b-button
                           >
                         </b-form>
@@ -63,7 +63,8 @@
                         <b-form-select
                           v-model="selectedCurrencyConvert"
                           :options="kod"
-                          value-field="rates"
+                          value-field="code"
+                          text-field="code"
                         ></b-form-select> </b-col></b-row></b-container
                 ></b-col>
                 <b-col cols="5">
@@ -90,16 +91,19 @@ export default {
     return {
       b: [],
       kod: [],
+      countries: [],
       selectedCurrencyBase: "",
       selectedCurrencyConvert: "",
       form: {
         email: "",
+        email2: "",
       },
     };
   },
 
   created() {
     this.loadCurrency();
+    this.loadAllCountries();
   },
   methods: {
     onSubmit(evt) {
@@ -118,9 +122,7 @@ export default {
     },
     loadCurrency() {
       axios
-        .get(
-          "http://data.fixer.io/api/latest?access_key=2775a2447f46b37ae6dd6d357884b28b"
-        )
+        .get("https://api.exchangeratesapi.io/latest")
         .then((response) => {
           // handle success
           //   //   this.currency. = response.data.rates;
@@ -128,13 +130,27 @@ export default {
           //   console.log(this.kod);
           //   console.log(response.data.rates);
           this.kod = Object.keys(response.data.rates);
-          console.log(this.kod[1]);
         })
         .catch(function(error) {
           // handle error
           console.log(error);
         });
     },
+    loadAllCountries() {
+      axios
+        .get("https://restcountries.eu/rest/v2/all")
+        .then((respond) => {
+          var length = respond.data.length;
+          var i = 0;
+          for (i; i < length; i++) {
+            this.countries.push(respond.data[i].currencies[0].code);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    convert() {},
   },
 };
 </script>
