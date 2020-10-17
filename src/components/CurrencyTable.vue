@@ -2,6 +2,13 @@
   <div>
     <h1>Currency Dashboard (Incoming!)</h1>
     <b-container fluid="xl">
+      <b-button
+        class="shadow-lg"
+        type="submit"
+        variant="primary"
+        v-on:click="loadCurrencyName()"
+        >Convert</b-button
+      >
       <b-row class="py-5">
         <b-col cols="12">
           <b-table
@@ -17,19 +24,71 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
   name: "CurrencyTable",
   data() {
     return {
-      items: [
-        { age: 40, first_name: "Dickerson", last_name: "Macdonald" },
-        { age: 21, first_name: "Larsen", last_name: "Shaw" },
-        { age: 89, first_name: "Geneva", last_name: "Wilson" },
-        { age: 38, first_name: "Jami", last_name: "Carney" },
-      ],
+      items: [],
+      currencyInfo: {},
+      amount: 1,
     };
   },
-  methods: {},
+  created() {
+    this.loadCurrency();
+    this.loadCurrencyName();
+  },
+  methods: {
+    loadCurrency() {
+      axios
+        .get("https://api.exchangeratesapi.io/latest")
+        .then((response) => {
+          for (var a in response.data.rates) {
+            this.currencyInfo = {
+              kod: a,
+              currency: response.data.rates[a],
+              Amount: this.amount * response.data.rates[a],
+              name: "",
+            };
+            this.items.push(this.currencyInfo);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    loadCurrencyName() {
+      axios
+        .get("https://restcountries.eu/rest/v2/all")
+        .then((respond) => {
+          var length = respond.data.length;
+          var i = 0;
+          var b = 0;
+          var code;
+          // console.log(this.currencyInfo.length);
+          var kodLength = this.items.length;
+          for (b = 0; b < kodLength; b++) {
+            for (i = 0; i < length; i++) {
+              code = respond.data[i].currencies[0].code;
+              if (respond.data[i].currencies.length > 1) {
+                for (var x in respond.data[i].currencies) {
+                  if (respond.data[i].currencies[x].code == this.items[b].kod) {
+                    this.items[b].name = respond.data[i].currencies[x].name;
+                  }
+                }
+              }
+              if (code == this.items[b].kod) {
+                this.items[b].name = respond.data[i].currencies[0].name;
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

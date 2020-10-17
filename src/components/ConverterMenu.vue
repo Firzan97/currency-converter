@@ -104,7 +104,6 @@ export default {
   created() {
     this.loadCurrency();
     this.loadAllCountries();
-    this.loadCurrencyName();
   },
   methods: {
     onSubmit(evt) {
