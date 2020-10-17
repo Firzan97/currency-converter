@@ -30,6 +30,7 @@
                       </div>
                       <b-col cols="4">
                         <b-form-select
+                          class="select"
                           v-model="selectedCurrencyBase"
                           :options="kod"
                         ></b-form-select> </b-col
@@ -53,17 +54,20 @@
                       </div>
                       <b-col cols="4">
                         <b-form-select
+                          class="select"
                           v-model="selectedCurrencyConvert"
                           :options="kod"
                           text-field="code"
                         ></b-form-select> </b-col
                     ></b-row>
-                    <b-button
-                      class="shadow-lg mt-2"
-                      type="submit"
-                      variant="primary"
-                      v-on:click="convert()"
-                      >Convert</b-button
+                    <b-row>
+                      <b-button
+                        class="shadow-lg mt-4"
+                        type="submit"
+                        variant="primary"
+                        v-on:click="convert()"
+                        >Convert</b-button
+                      ></b-row
                     ></b-container
                   ></b-col
                 >
@@ -203,6 +207,13 @@ export default {
   }
   .converter-menu {
     height: 600px;
+    width: 160%;
+  }
+  button {
+    margin-right: 4px;
+  }
+  .select {
+    width: 120px;
   }
 }
 </style>
