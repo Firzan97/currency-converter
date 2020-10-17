@@ -201,13 +201,14 @@ export default {
 .duit {
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 769px) {
   img {
     display: none;
   }
   .converter-menu {
-    height: 600px;
+    height: 570px;
     width: 160%;
+    margin-top: 30px;
   }
   button {
     margin-right: 4px;
