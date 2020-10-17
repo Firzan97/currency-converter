@@ -197,9 +197,12 @@ export default {
 .duit {
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
   img {
     display: none;
+  }
+  .converter-menu {
+    height: 600px;
   }
 }
 </style>
