@@ -18,7 +18,7 @@
           <b-form-select
             v-model="selectedCurrencyBase"
             :options="items"
-            value-field="name"
+            value-field="kod"
             text-field="name"
           ></b-form-select>
         </b-col>
@@ -130,9 +130,33 @@ export default {
       //     rates = this.items[x].currency;
       //   }
       // }
-      for (var a in this.items) {
-        this.items[a].amount = this.form.email * this.items[a].currency;
-      }
+      var count = 0;
+      axios
+        .get(
+          "https://api.exchangeratesapi.io/latest?base=" +
+            this.selectedCurrencyBase
+        )
+        .then((response) => {
+          for (var x in response.data.rates) {
+            this.items[count].kod = x;
+            this.items[count].currency =
+              Math.round((response.data.rates[x] + Number.EPSILON) * 100) / 100;
+            this.items[count].amount =
+              Math.round(
+                (this.form.email * response.data.rates[x] + Number.EPSILON) *
+                  100
+              ) / 100;
+            console.log(x);
+            console.log(this.items[count].kod);
+            count++;
+          }
+          for (var a in this.items) {
+            this.items[a].amount = this.form.email * this.items[a].currency;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

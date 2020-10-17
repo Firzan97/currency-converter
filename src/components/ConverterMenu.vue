@@ -49,13 +49,6 @@
                               >sasa</b-form-input
                             >
                           </b-form-group>
-                          <b-button
-                            class="shadow-lg"
-                            type="submit"
-                            variant="primary"
-                            v-on:click="convert()"
-                            >Convert</b-button
-                          >
                         </b-form>
                       </div>
                       <b-col cols="4">
@@ -63,8 +56,17 @@
                           v-model="selectedCurrencyConvert"
                           :options="kod"
                           text-field="code"
-                        ></b-form-select> </b-col></b-row></b-container
-                ></b-col>
+                        ></b-form-select> </b-col
+                    ></b-row>
+                    <b-button
+                      class="shadow-lg mt-2"
+                      type="submit"
+                      variant="primary"
+                      v-on:click="convert()"
+                      >Convert</b-button
+                    ></b-container
+                  ></b-col
+                >
                 <b-col cols="5">
                   <img
                     class="img-fluid pl-2"
@@ -193,5 +195,11 @@ export default {
   font-size: 25px;
 }
 .duit {
+}
+
+@media screen and (max-width: 480px) {
+  img {
+    display: none;
+  }
 }
 </style>
