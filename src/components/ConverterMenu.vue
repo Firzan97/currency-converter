@@ -10,7 +10,7 @@
               <b-row>
                 <b-col cols="7">
                   <b-container>
-                    <b-row class="py-5">
+                    <b-row class="converter py-2 ">
                       <div class="">
                         <b-form v-on:submit="onSubmit" v-on:reset="onReset">
                           <b-form-group
@@ -187,7 +187,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap");
 .converter-menu {
   background-color: rgba(255, 255, 255, 0.6);
-  height: 500px;
+  height: 430px;
   width: 100%;
   margin-top: 90px;
   font-family: Arial, Helvetica, sans-serif;
@@ -206,7 +206,7 @@ export default {
     display: none;
   }
   .converter-menu {
-    height: 570px;
+    height: 440px;
     width: 160%;
     margin-top: 30px;
   }
@@ -215,6 +215,9 @@ export default {
   }
   .select {
     width: 120px;
+  }
+  .converter {
+    padding-bottom: 10px;
   }
 }
 </style>
