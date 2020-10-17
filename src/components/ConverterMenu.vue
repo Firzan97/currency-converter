@@ -206,7 +206,7 @@ export default {
     display: none;
   }
   .converter-menu {
-    height: 440px;
+    height: 470px;
     width: 160%;
     margin-top: 30px;
   }
