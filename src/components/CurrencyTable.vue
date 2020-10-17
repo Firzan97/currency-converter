@@ -1,14 +1,43 @@
 <template>
   <div>
     <h1>Currency Dashboard (Incoming!)</h1>
+    <b-container>
+      <b-row class="pl-5">
+        <b-col cols="5">
+          <b-form-group
+            id="input-group-1"
+            label-for="input-1"
+            description="Base currency"
+          >
+            <b-form-input id="input-1" v-model="form.email" type="text" required
+              >sasa</b-form-input
+            >
+          </b-form-group></b-col
+        >
+        <b-col cols="5">
+          <b-form-select
+            v-model="selectedCurrencyBase"
+            :options="items"
+            value-field="name"
+            text-field="name"
+          ></b-form-select>
+        </b-col>
+        <b-col>
+          <b-button
+            class="shadow-lg"
+            type="submit"
+            variant="primary"
+            v-on:click="convert()"
+            >Convert</b-button
+          >
+        </b-col></b-row
+      ></b-container
+    >
+    <div class="mt-3">
+      Selected: <strong>{{ selectedCurrencyBase }}</strong>
+    </div>
+
     <b-container fluid="xl">
-      <b-button
-        class="shadow-lg"
-        type="submit"
-        variant="primary"
-        v-on:click="loadCurrencyName()"
-        >Convert</b-button
-      >
       <b-row class="py-5">
         <b-col cols="12">
           <b-table
@@ -30,9 +59,14 @@ export default {
   name: "CurrencyTable",
   data() {
     return {
+      selectedCurrencyBase: "",
       items: [],
       currencyInfo: {},
       amount: 1,
+      form: {
+        email: "",
+        email2: "",
+      },
     };
   },
   created() {
@@ -48,7 +82,7 @@ export default {
             this.currencyInfo = {
               kod: a,
               currency: response.data.rates[a],
-              Amount: this.amount * response.data.rates[a],
+              amount: this.amount * response.data.rates[a],
               name: "",
             };
             this.items.push(this.currencyInfo);
@@ -87,6 +121,18 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    convert() {
+      // var rates;
+
+      // for (var x in this.items) {
+      //   if (this.selectedCurrencyBase == this.items[x].name) {
+      //     rates = this.items[x].currency;
+      //   }
+      // }
+      for (var a in this.items) {
+        this.items[a].amount = this.form.email * this.items[a].currency;
+      }
     },
   },
 };
